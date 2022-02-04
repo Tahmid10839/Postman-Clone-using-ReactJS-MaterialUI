@@ -1,0 +1,7 @@
+.CodeMirror {
+  height: 150px !important;
+  font-size: 1rem;
+  background-color: rgb(250, 254, 255);
+  /* resize: vertical;
+  overflow: auto !important; */
+}
