@@ -22,6 +22,9 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
     box: {
+        marginTop: [20, '!important'],
+    },
+    editorContainer: {
         // height: ['150px', '!important'],
         border: '1px solid #ccc',
     },
@@ -57,7 +60,7 @@ const CreateJsonText = () => {
     }
 
     return (
-        <>
+        <Box className={classes.box}>
             <Typography mt={1} mb={1}>
                 JSON Content
             </Typography>
@@ -66,7 +69,7 @@ const CreateJsonText = () => {
                 maxRows={5}
                 style={textStyle}
             /> */}
-            <Box className={classes.box}>
+            <Box className={classes.editorContainer}>
                 <ControlledEditor
                     onBeforeChange={handleChange}
                     value={value}
@@ -75,7 +78,7 @@ const CreateJsonText = () => {
                 />
             </Box>
 
-        </>
+        </Box>
     )
 };
 

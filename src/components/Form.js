@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Box, Select, MenuItem, TextField, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { AppContext } from '../context/DataProvider';
 
 const useStyles = makeStyles({
     box: {
@@ -25,19 +26,36 @@ const useStyles = makeStyles({
 
 const Form = () => {
     const classes = useStyles()
+    const { formData: { url, type }, setFormData } = useContext(AppContext)
+
+    const handleChange = (e) => {
+        setFormData(prev => (
+            { ...prev, type: e.target.value }
+        ))
+    }
+
+    const onUrlChange = (e) => {
+        setFormData(prev => (
+            { ...prev, url: e.target.value }
+        ))
+    }
+
     return (
         <Box className={classes.box}>
             <Select
                 className={classes.select}
-                value={'POST'}
+                value={type}
+                onChange={(e) => handleChange(e)}
             >
-                <MenuItem value={'POST'}>POST</MenuItem>
                 <MenuItem value={'GET'}>GET</MenuItem>
+                <MenuItem value={'POST'}>POST</MenuItem>
             </Select>
             <TextField
                 size="small"
                 className={classes.textfield}
                 placeholder='Enter URL Here...'
+                value={url}
+                onChange={(e) => onUrlChange(e)}
             />
             <Button
                 variant="contained"

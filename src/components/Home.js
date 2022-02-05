@@ -4,6 +4,8 @@ import Header from './Header';
 import { Box } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import Tabbar from './Tabbar';
+import Response from './Response';
+import ErrorScreen from './ErrorScreen';
 
 const useStyles = makeStyles({
     box: {
@@ -23,6 +25,8 @@ const Home = () => {
             <Box className={classes.box}>
                 <Form />
                 <Tabbar />
+                <Response />
+                {/* <ErrorScreen /> */}
             </Box>
         </div>
     )
