@@ -1,4 +1,4 @@
-import { TableRow, TableCell, Checkbox, TextField } from '@mui/material';
+import { TableRow, TableCell, Checkbox, TextField, Button, Box } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import React, { useState } from 'react';
 
@@ -13,6 +13,17 @@ const useStyles = makeStyles({
     },
     textField: {
         width: '100%',
+    },
+    box: {
+        position: 'absolute',
+        right: -30,
+        top: 10,
+    },
+    button: {
+        borderRadius: ['50%', '!important'],
+        padding: ['20px 13px', '!important'],
+        lineHeight: [0, '!important'],
+        minWidth: ['20px', '!important'],
     }
 })
 
@@ -39,18 +50,36 @@ const AddRow = () => {
 
     const handleKey = (e, index) => {
         // console.log(keyValue.length);
-        if (rows[index]['key'].length === 0 && rows[index + 1] === undefined) {
+        if ((rows[index]['key'].length === 0 || rows[index]['key'].length !== 0) && rows[index + 1] === undefined) {
             // setCheck(true)
             let row = [...rows]
             row[index] = { ...row[index], check: true, key: e.target.value }
             setRows(row)
             // setLastIndex(lastIndex + 1)
-            setRows(prev => ([...prev, { id: index + 1 + 1, key: '', value: '', check: false }]))
+            setRows(prev => ([...prev, { id: row[index]['id'] + 1, key: '', value: '', check: false }]))
         } else {
             let row = [...rows]
             row[index] = { ...row[index], key: e.target.value }
             setRows(row)
         }
+    }
+
+    const handleValue = (e, index) => {
+        // console.log(keyValue.length);
+        if (((rows[index]['key'].length === 0 && rows[index]['value'].length === 0) || rows[index]['value'].length !== 0) && rows[index + 1] === undefined) {
+            let row = [...rows]
+            row[index] = { ...row[index], check: true, value: e.target.value }
+            setRows(row)
+            setRows(prev => ([...prev, { id: row[index]['id'] + 1, key: '', value: '', check: false }]))
+        } else {
+            let row = [...rows]
+            row[index] = { ...row[index], value: e.target.value }
+            setRows(row)
+        }
+    }
+
+    const handleRemove = (id) => {
+        setRows(rows.filter(row => row.id !== id))
     }
 
     return (
@@ -79,8 +108,10 @@ const AddRow = () => {
                                 }}
                             />
                         </TableCell>
-                        <TableCell className={classes.tableCell}>
+                        <TableCell className={classes.tableCell} style={{ position: 'relative' }}>
                             <TextField
+                                value={row.value}
+                                onChange={(e) => handleValue(e, index)}
                                 className={classes.textField}
                                 inputProps={{
                                     style: {
@@ -89,6 +120,13 @@ const AddRow = () => {
                                     }
                                 }}
                             />
+                            {index !== 0 && (
+                                <Box className={classes.box}>
+
+                                    <Button onClick={() => handleRemove(row.id)} className={classes.button} color="error" size="large" >&times;</Button>
+                                </Box>
+                            )}
+
                         </TableCell>
                     </TableRow>
                 ))
