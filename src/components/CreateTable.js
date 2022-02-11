@@ -15,7 +15,7 @@ const useStyles = makeStyles({
     }
 })
 
-const CreateTable = ({ text }) => {
+const CreateTable = ({ text, data, setData }) => {
     const classes = useStyles()
     // const [rows, setRows] = useState([0])
     // const [rows, setRows] = useState([{ id: 1, key: '', value: '' }])
@@ -46,7 +46,7 @@ const CreateTable = ({ text }) => {
                             />
                         })
                     } */}
-                    <AddRow />
+                    <AddRow rows={data} setRows={setData} />
                 </TableBody>
             </Table>
         </Box>

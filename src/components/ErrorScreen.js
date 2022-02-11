@@ -9,7 +9,7 @@ const useStyles = makeStyles({
         flexDirection: 'column',
         alignItems: 'center',
         margin: '0 auto',
-        width: '400px',
+        width: '500px',
     },
     errorShow: {
         display: 'flex',
@@ -30,7 +30,7 @@ const useStyles = makeStyles({
 
 })
 // blue
-const ErrorScreen = () => {
+const ErrorScreen = ({ status }) => {
     const classes = useStyles()
     return (
         <Box className={classes.container}>
@@ -41,11 +41,11 @@ const ErrorScreen = () => {
             </Typography>
             <Box className={classes.errorShow}>
                 <Typography mr={2}>
-                    Error:
+                    Error: {status}
                 </Typography>
                 <Box style={{ height: '30px', width: '2px', background: '#ccc' }} />
                 <Button className={classes.button}>
-                    View in Console
+                    Press Shift + CTRL + J to view in console
                 </Button>
             </Box>
             <a href="https://learning.postman.com/docs/sending-requests/troubleshooting-api-requests/" target="_blank" style={{ textDecoration: 'none', fontSize: '1.2rem' }}>

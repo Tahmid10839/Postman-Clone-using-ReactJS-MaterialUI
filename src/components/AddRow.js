@@ -1,6 +1,6 @@
 import { TableRow, TableCell, Checkbox, TextField, Button, Box } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const useStyles = makeStyles({
     tableCell: {
@@ -28,14 +28,20 @@ const useStyles = makeStyles({
 })
 
 // const AddRow = ({ setRows, rowId, rows, keyValue, value }) => {
-const AddRow = () => {
+const AddRow = ({ rows, setRows }) => {
     const classes = useStyles()
     // const [check, setCheck] = useState(false)
     // const [key, setKey] = useState('')
     // const [lastIndex, setLastIndex] = useState(1)
     // let row = [...rows]
-    const [rows, setRows] = useState([{ id: 1, key: '', value: '', check: false }])
-    console.log(rows);
+    // const [rows, setRows] = useState([{ id: 1, key: '', value: '', check: false }])
+    // console.log(rows);
+
+    // useEffect(() => {
+    //     setData(rows)
+    // }, [rows])
+
+    // console.log(data);
     const handleChange = (e, index) => {
         // if (!check) {
         //     setCheck(true)
@@ -66,7 +72,7 @@ const AddRow = () => {
 
     const handleValue = (e, index) => {
         // console.log(keyValue.length);
-        if (((rows[index]['key'].length === 0 && rows[index]['value'].length === 0) || rows[index]['value'].length !== 0) && rows[index + 1] === undefined) {
+        if (((rows[index]['value'].length === 0) || rows[index]['value'].length !== 0) && rows[index + 1] === undefined) {
             let row = [...rows]
             row[index] = { ...row[index], check: true, value: e.target.value }
             setRows(row)

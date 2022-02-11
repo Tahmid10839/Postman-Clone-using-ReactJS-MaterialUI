@@ -5,43 +5,23 @@ import 'codemirror/theme/material.css';
 import "codemirror/mode/javascript/javascript.js";
 import 'codemirror/addon/edit/closebrackets';
 import 'codemirror/addon/edit/matchbrackets';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { makeStyles } from '@mui/styles';
-
-// const textStyle = {
-//     width: '100%',
-//     padding: 10,
-//     background: 'url(http://i.imgur.com/2cOaJ.png)',
-//     // backgroundAttachment: 'local',
-//     backgroundRepeat: 'no-repeat',
-//     paddingLeft: 35,
-//     paddingTop: 10,
-//     borderColor: '#ccc',
-//     outline: 'none',
-// }
+import { AppContext } from '../context/DataProvider';
 
 const useStyles = makeStyles({
     box: {
         marginTop: [20, '!important'],
     },
     editorContainer: {
-        // height: ['150px', '!important'],
         border: '1px solid #ccc',
     },
-    codemirror: {
-        // height: ['100%', '!important'],
-        // overflow: 'hidden',
-    }
+
 })
 
 const cmOptions = {
     theme: "default",
     viewportMargin: Infinity,
-    // mode: {
-    //     name: "javascript",
-    //     json: true,
-    //     statementIndent: 2
-    // },
     matchBrackets: true,
     autoCloseBrackets: true,
     mode: "application/ld+json",
@@ -53,10 +33,10 @@ const cmOptions = {
 
 const CreateJsonText = () => {
     const classes = useStyles()
-    const [value, setValue] = useState('')
+    const { jsonText, setJsonText } = useContext(AppContext)
 
     const handleChange = (editor, data, value) => {
-        setValue(value)
+        setJsonText(value)
     }
 
     return (
@@ -64,15 +44,10 @@ const CreateJsonText = () => {
             <Typography mt={1} mb={1}>
                 JSON Content
             </Typography>
-            {/* <TextareaAutosize
-                minRows={3}
-                maxRows={5}
-                style={textStyle}
-            /> */}
             <Box className={classes.editorContainer}>
                 <ControlledEditor
                     onBeforeChange={handleChange}
-                    value={value}
+                    value={jsonText}
                     className={classes.codemirror}
                     options={cmOptions}
                 />

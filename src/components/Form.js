@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     }
 })
 
-const Form = () => {
+const Form = ({ onSendClick }) => {
     const classes = useStyles()
     const { formData: { url, type }, setFormData } = useContext(AppContext)
 
@@ -60,6 +60,7 @@ const Form = () => {
             <Button
                 variant="contained"
                 className={classes.button}
+                onClick={onSendClick}
             >
                 Send
             </Button>

@@ -10,7 +10,7 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
     container: {
-        marginTop: [70, '!important'],
+        marginTop: [50, '!important'],
     },
     info: {
         display: 'flex',
@@ -34,17 +34,14 @@ const cmOptions = {
     lineWrapping: true,
     indentWithTabs: false,
     tabSize: 2,
-    readOnly: 'nocursor',
+    readOnly: 'cursor',
+    beautify: true,
 };
 
 
-const Response = () => {
+const Response = ({ data, status, time, size }) => {
     const classes = useStyles()
-    const [value, setValue] = useState('')
 
-    const handleChange = (editor, data, value) => {
-        setValue(value)
-    }
     return (
         <Box className={classes.container}>
             <Typography mt={1} style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>
@@ -52,19 +49,19 @@ const Response = () => {
             </Typography>
             <Box className={classes.info}>
                 <Typography>
-                    Status: 200
+                    Status: {status}
                 </Typography>
                 <Typography>
-                    Time: 146ms
+                    Time: {time ? `${time}ms` : ''}
                 </Typography>
                 <Typography>
-                    Size: 2356kb
+                    Size: {size}
                 </Typography>
             </Box>
             <Box className={classes.responseContainer}>
                 <ControlledEditor
-                    onBeforeChange={handleChange}
-                    value={value}
+                    // onBeforeChange={handleChange}
+                    value={data.length === 0 ? '' : JSON.stringify(data, null, 2)}
                     // className={classes.codemirror}
                     options={cmOptions}
                 />

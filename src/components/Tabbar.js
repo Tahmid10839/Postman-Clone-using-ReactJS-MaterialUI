@@ -1,8 +1,9 @@
 import { Box, Tab, Tabs } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import CreateJsonText from './CreateJsonText';
 import CreateTable from './CreateTable';
+import { AppContext } from '../context/DataProvider';
 
 const useStyles = makeStyles({
     box: {
@@ -34,6 +35,7 @@ const TabPanel = (props) => {
 const Tabbar = () => {
     const classes = useStyles()
     const [value, setValue] = useState(0)
+    const { paramData, setParamData, headerData, setHeaderData } = useContext(AppContext)
     return (
         <Box className={classes.box}>
             <Box>
@@ -54,10 +56,10 @@ const Tabbar = () => {
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
-                <CreateTable text={"Query Params"} />
+                <CreateTable text={"Query Params"} data={paramData} setData={setParamData} />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <CreateTable text={"Headers"} />
+                <CreateTable text={"Headers"} data={headerData} setData={setHeaderData} />
             </TabPanel>
             <TabPanel value={value} index={2}>
                 <CreateJsonText />
